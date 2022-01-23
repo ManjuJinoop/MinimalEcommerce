@@ -1,7 +1,11 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
-import Login from '../Screens/Login'
+import Login from '../Screens/Login';
+import SignUp from '../Screens/Register';
+import ProductList from '../Screens/ProductList';
+import Cart from '../Screens/Cart';
+import Checkout from '../Screens/Checkout';
 import {
     Platform,
     StatusBar,
@@ -33,6 +37,39 @@ function MainSectionStack({ navigation }) {
                         close: config,
                     },
                 })} />
+            <MainStackCreator.Screen name="SignUp" component={SignUp}
+                options={(props) => ({
+                    header: () => null,
+                    transitionSpec: {
+                        open: config,
+                        close: config,
+                    },
+                })} />
+            <MainStackCreator.Screen name="ProductList" component={ProductList}
+                options={(props) => ({
+                    header: () => null,
+                    transitionSpec: {
+                        open: config,
+                        close: config,
+                    },
+                })} />
+            <MainStackCreator.Screen name="Cart" component={Cart}
+                options={(props) => ({
+                    header: () => null,
+                    transitionSpec: {
+                        open: config,
+                        close: config,
+                    },
+                })} />
+             <MainStackCreator.Screen name="Checkout" component={Checkout}
+                options={(props) => ({
+                    header: () => null,
+                    transitionSpec: {
+                        open: config,
+                        close: config,
+                    },
+                })} />
+            
             
          
         </MainStackCreator.Navigator>
