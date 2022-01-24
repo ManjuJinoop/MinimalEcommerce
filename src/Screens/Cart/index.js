@@ -10,7 +10,8 @@ import {
 } from 'react-native-responsive-screen'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function Cart({ navigation }) {
+function Cart({ navigation ,route }) {
+  const { Param }             = route.params; 
   const [state, setstate] = useState({
     data: [
        { id: 1, title: "item1"},{ id: 2, title: "item2"},{ id: 3, title: "item3"}  ],
@@ -24,7 +25,7 @@ function Cart({ navigation }) {
                     <Text style={styles.welcome}> Cart</Text> 
                     <FlatList style={styles.list}
                         contentContainerStyle={styles.listContainer}
-                        data={state.data}
+                        data={Param}
                         horizontal={false}
                         scrollEnabled={true}
                         numColumns={1}

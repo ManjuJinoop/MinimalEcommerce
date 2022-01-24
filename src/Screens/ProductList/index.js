@@ -10,12 +10,20 @@ import {
 } from 'react-native-responsive-screen'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function ProductList({ navigation }) {
-  const [state, setstate] = useState({
-    data: [
-       { id: 1, title: "item1"},{ id: 2, title: "item2"},{ id: 3, title: "item3"}  ],
-           
-        });
+function ProductList({ navigation , route }) {
+  const { Param }             = route.params; 
+  const [cart,setcart]        = useState('');
+  const [cart1,setcart1]        = useState('')
+  const AddToCart=(item)=>{
+    setcart([...cart, item])
+    console.log(cart);
+    const cart1 = cart.filter((v,i) => {
+      return cart.map((val)=> val.category_id).indexOf(v.category_id) == i//filter
+    })
+    setcart1(cart1)
+    console.log(cart1);
+  }
+  
     return ( 
         <SafeAreaView style={styles.container}>
             <KeyboardAwareScrollView  enableOnAndroid={Platform.OS === 'android'} enableAutomaticScroll={true} >
@@ -24,7 +32,7 @@ function ProductList({ navigation }) {
                     <Text style={styles.welcome}>ProductList</Text> 
                     <FlatList style={styles.list}
                         contentContainerStyle={styles.listContainer}
-                        data={state.data}
+                        data={Param}
                         horizontal={false}
                         scrollEnabled={true}
                         numColumns={1}
@@ -36,7 +44,7 @@ function ProductList({ navigation }) {
                             <View style={{margin:5,borderColor:'grey',borderWidth:1.5,width:300,borderRadius:.5}}>
                             <Text style={{color:'black',alignSelf:'center',marginTop:16}}>{item.title}</Text>
                               <TouchableOpacity
-                                  //onPress={() => navigation.navigate('Table',{Param: item.id})}
+                                  onPress={() => AddToCart(item)}
                                   >
                                           <Text style={{color:'white',alignSelf:'center',margin:10 ,fontWeight:'bold',padding:1,backgroundColor:'black',alignSelf:'flex-end'}}>
                                             Add To Cart</Text>
@@ -48,7 +56,7 @@ function ProductList({ navigation }) {
                             style    ={{marginTop : heightPercentageToDP(7)}}
                             height1  ={heightPercentageToDP(7)}
                             width1   ={'100%'}
-                            onPress  ={() => navigation.navigate('Cart')}
+                            onPress  ={() => navigation.navigate('Cart',{Param:cart1})}
                             title    ='View Your Cart ' 
                         /> 
                        
