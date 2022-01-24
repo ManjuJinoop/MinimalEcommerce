@@ -12,13 +12,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function ProductList({ navigation , route }) {
   const { Param }             = route.params; 
+  
   const [cart,setcart]        = useState('');
-  const [cart1,setcart1]        = useState('')
+  const [cart1,setcart1]        = useState(Param[0])
   const AddToCart=(item)=>{
     setcart([...cart, item])
     console.log(cart);
+    setcart1(cart)
     const cart1 = cart.filter((v,i) => {
-      return cart.map((val)=> val.category_id).indexOf(v.category_id) == i//filter
+      return cart.map((val)=> val.id).indexOf(v.id) == i//filter
     })
     setcart1(cart1)
     console.log(cart1);

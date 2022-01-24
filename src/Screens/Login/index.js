@@ -92,6 +92,8 @@ function Login({ navigation }) {
                             height1  ={heightPercentageToDP(7)}
                             width1   ={'100%'}
                             onPress  ={() => {Data() , Login()}}
+                            //onPress  ={() => navigation.navigate('ProductList')}
+
                             title    =' Login ' 
                         /> 
                         <View style={{flexDirection:'row' , marginTop:25,justifyContent:'flex-end',alignItems:'center'}}>

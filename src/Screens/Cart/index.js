@@ -1,4 +1,4 @@
-import React, {useState} from 'react';  
+import React, {useState,useEffect} from 'react';  
 import {Platform, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView ,FlatList} from 'react-native';  
 import { CustomInput  } from '../../Components/CustomInput' ;
 import { CustomButton } from '../../Components/CustomButton';
@@ -8,15 +8,27 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from 'react-native-responsive-screen'; 
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Geolocation from '@react-native-community/geolocation';
 
 function Cart({ navigation ,route }) {
   const { Param }             = route.params; 
-  const [state, setstate] = useState({
-    data: [
-       { id: 1, title: "item1"},{ id: 2, title: "item2"},{ id: 3, title: "item3"}  ],
-           
-        });
+  const [currentLongitude,setCurrentLongitude] = useState('...');
+  const [currentLatitude,setCurrentLatitude]   = useState('...');
+
+  useEffect(() => {
+    getOneTimeLocation();
+  }, []);
+  
+  const getOneTimeLocation = () => {
+    Geolocation.getCurrentPosition(//Will give you the current location
+      (position) => {
+        const currentLongitude = position.coords.longitude;//getting the Latitude from the location json
+        const currentLatitude  = position.coords.latitude;//Setting Longitude state
+        setCurrentLongitude(currentLongitude);//Setting Longitude state
+        setCurrentLatitude(currentLatitude); 
+    },
+    )
+  }
     return ( 
         <SafeAreaView style={styles.container}>
             <KeyboardAwareScrollView  enableOnAndroid={Platform.OS === 'android'} enableAutomaticScroll={true} >
@@ -44,7 +56,7 @@ function Cart({ navigation ,route }) {
                             style    ={{marginTop : heightPercentageToDP(7)}}
                             height1  ={heightPercentageToDP(7)}
                             width1   ={'100%'}
-                            onPress  ={() => navigation.navigate('Checkout')}
+                            onPress  ={() => navigation.navigate('Checkout',{Param2:currentLongitude,Param1:currentLatitude})}
                             title    ='Checkout ' 
                         /> 
                        
